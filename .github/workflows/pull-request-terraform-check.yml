@@ -1,9 +1,12 @@
 name: Pull request terraform check
  
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches:
-      - main  
+      - main
  
 jobs:
   terraform:
