@@ -23,10 +23,7 @@ variable "vpc_name" {
   type        = string
 }
 
-# variable "availability_zones" {
-#   description = "Availability zones"
-#   type        = list(string)
-# }
+
 
 variable "ami_id" {
   description = "The AMI ID for the EC2 instance"
@@ -62,3 +59,19 @@ variable "ami_name" {
   description = "Name of the AMI to use"
   type        = string
 }
+
+variable "db_name" {
+  description = "Database name"
+  type        = string
+}
+
+variable "db_user" {
+  description = "Database username"
+  type        = string
+}
+
+variable "db_password" {
+  description = "Database password"
+  type        = string
+}
+
