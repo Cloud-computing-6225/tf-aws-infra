@@ -1,12 +1,12 @@
 # Reference the existing Route 53 Hosted Zone
 data "aws_route53_zone" "my_dev_zone" {
-  name = "dev.ashwinnair.me" # Change based on environment
+  name =  var.domain_name
 }
 
 # Define the A record for your web app instance
 resource "aws_route53_record" "web_app_a_record" {
   zone_id = data.aws_route53_zone.my_dev_zone.zone_id
-  name    = "dev.ashwinnair.me" # Change based on environment
+  name    = var.domain_name
   type    = "A"
   ttl     = 60
 
