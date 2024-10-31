@@ -20,8 +20,8 @@ resource "aws_iam_policy" "s3_access_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "s3:PutObject",
           "s3:DeleteObject",
           "s3:GetObject"
