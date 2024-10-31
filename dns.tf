@@ -1,6 +1,6 @@
 # Reference the existing Route 53 Hosted Zone
 data "aws_route53_zone" "my_dev_zone" {
-  name =  var.domain_name
+  name = var.domain_name
 }
 
 # Define the A record for your web app instance
