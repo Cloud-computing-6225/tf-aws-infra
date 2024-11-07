@@ -79,3 +79,25 @@ variable "domain_name" {
   description = "The domain name for the environment"
   type        = string
 }
+
+variable "scale_up" {
+  description = "The CPU usage at which system scales up"
+  type        = number
+}
+variable "scale_down" {
+  description = "The CPU usage at which system scales down"
+  type        = number
+}
+variable "health_check_grace_period" {
+  description = "The grace period "
+  type        = number
+}
+variable "cooldown" {
+  description = "Cooldown period"
+  type        = number
+}
+variable "period" {
+  description = "Period"
+  type        = number
+}
+
