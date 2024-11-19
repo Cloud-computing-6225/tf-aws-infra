@@ -153,13 +153,22 @@ resource "aws_iam_instance_profile" "cloudwatch_instance_profile" {
 #   depends_on = [aws_db_instance.csye6225_db]
 # }
 
+# resource "aws_sns_topic" "user_verification_topic" {
+#   name = "UserVerificationTopic"
+# }
+
+
 resource "aws_launch_template" "web_app_launch_template" {
-  name = "csye6225_asg"
+  name = "webapp_launch_template"
 
   image_id               = data.aws_ami.custom_ami.id
   instance_type          = "t2.micro"
   key_name               = var.key_pair_name
   vpc_security_group_ids = [aws_security_group.web_app_sg.id]
+
+  iam_instance_profile {
+    name = aws_iam_instance_profile.cloudwatch_instance_profile.name
+  }
 
   user_data = base64encode(<<-EOF
     #!/bin/bash
@@ -190,6 +199,7 @@ resource "aws_launch_template" "web_app_launch_template" {
     S3_BUCKET_NAME=${aws_s3_bucket.app_bucket.bucket}
     AWS_REGION=${var.region}
     project_name=${var.project_name}
+    SNS_TOPIC_ARN=${aws_sns_topic.user_verification_topic.arn}
     EOL
 
     # Debugging: print the created .env file
