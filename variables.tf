@@ -100,4 +100,20 @@ variable "period" {
   description = "Period"
   type        = number
 }
+variable "sendgrid_api_key" {
+  description = "SendGrid API Key"
+  type        = string
+}
+variable "lambda_package_path" {
+  description = "Path to lambda package"
+  type        = string
+}
+variable "SENDGRID_FROM_EMAIL" {
+  description = "SendGrid From Email"
+  type        = string
+}
+variable "handler_path" {
+  description = "Path to the handler"
+  type        = string
+}
 
