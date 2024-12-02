@@ -6,9 +6,9 @@ resource "random_password" "db_password" {
 
 # Database password secret
 resource "aws_secretsmanager_secret" "db_password_secret" {
-  name                     = "${var.project_name}-dbpassword"
-  kms_key_id               = aws_kms_key.secrets_kms_key.id
-  recovery_window_in_days  = 30
+  name                    = "${var.project_name}-dbpassword"
+  kms_key_id              = aws_kms_key.secrets_kms_key.id
+  recovery_window_in_days = 30
 
   tags = {
     Name = "${var.project_name}-db-password-secret-10"
@@ -22,9 +22,9 @@ resource "aws_secretsmanager_secret_version" "db_password_version" {
 
 # Store email service credentials in Secrets Manager
 resource "aws_secretsmanager_secret" "email_service_secret" {
-  name                     = "sendgrid_ApiKeySecret"
-  kms_key_id               = aws_kms_key.secrets_kms_key.id
-  recovery_window_in_days  = 30
+  name                    = "sendgrid_ApiKeySecret"
+  kms_key_id              = aws_kms_key.secrets_kms_key.id
+  recovery_window_in_days = 30
 
   tags = {
     Name = "sendgrid_ApiKeySecret"
@@ -38,9 +38,9 @@ resource "aws_secretsmanager_secret_version" "email_service_version" {
 
 # Store the 'From Email' address in a separate secret
 resource "aws_secretsmanager_secret" "email_from_email_secret" {
-  name                     = "sendgrid_FromEmailSecret-4"
-  kms_key_id               = aws_kms_key.secrets_kms_key.id
-  recovery_window_in_days  = 30
+  name                    = "sendgrid_FromEmailSecret-4"
+  kms_key_id              = aws_kms_key.secrets_kms_key.id
+  recovery_window_in_days = 30
 
   tags = {
     Name = "sendgrid_FromEmailSecret"

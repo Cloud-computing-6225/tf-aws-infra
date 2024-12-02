@@ -69,9 +69,9 @@ resource "aws_lb_target_group" "app_target_group" {
 # }
 
 data "aws_acm_certificate" "imported_cert" {
-  domain          = var.domain_name
-  most_recent     = true
-  statuses        = ["ISSUED"]
+  domain      = var.domain_name
+  most_recent = true
+  statuses    = ["ISSUED"]
 }
 
 resource "aws_lb_listener" "https_listener" {

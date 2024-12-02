@@ -119,6 +119,6 @@ variable "handler_path" {
 variable "imported_certificate_arn" {
   description = "ARN of the imported certificate"
   type        = string
-  
+
 }
 

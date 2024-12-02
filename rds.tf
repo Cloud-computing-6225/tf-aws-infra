@@ -67,7 +67,7 @@ resource "aws_db_instance" "csye6225_db" {
   multi_az               = false
   skip_final_snapshot    = true
   db_name                = var.db_name
-  storage_encrypted      = true  
+  storage_encrypted      = true
   kms_key_id             = aws_kms_key.rds_kms_key.arn
 
   tags = {

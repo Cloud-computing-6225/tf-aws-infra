@@ -55,8 +55,8 @@ resource "aws_iam_policy" "secrets_manager_access" {
     Version = "2012-10-17",
     Statement = [
       {
-        Effect   = "Allow",
-        Action   = [
+        Effect = "Allow",
+        Action = [
           "secretsmanager:GetSecretValue",
           "secretsmanager:GetResourcePolicy"
         ],
@@ -81,7 +81,7 @@ resource "aws_iam_policy" "kms_access_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid: "AllowRoleAccessToSecretsManagerKey",
+        Sid : "AllowRoleAccessToSecretsManagerKey",
         Effect = "Allow",
         Action = [
           "kms:Decrypt",
@@ -92,7 +92,7 @@ resource "aws_iam_policy" "kms_access_policy" {
         ]
       },
       {
-        Sid: "AllowRoleAccessToS3KmsKey",
+        Sid : "AllowRoleAccessToS3KmsKey",
         Effect = "Allow",
         Action = [
           "kms:Decrypt",

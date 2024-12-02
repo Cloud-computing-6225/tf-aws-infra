@@ -8,7 +8,7 @@ resource "aws_lambda_function" "user_verification_function" {
   environment {
     variables = {
       # SENDGRID_API_KEY    = var.sendgrid_api_key
-      BASE_URL            = "http://${var.domain_name}"
+      BASE_URL = "http://${var.domain_name}"
       # SENDGRID_FROM_EMAIL = var.SENDGRID_FROM_EMAIL
     }
   }
@@ -48,11 +48,11 @@ resource "aws_iam_policy" "lambda_secrets_access_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-         Action   = [
+        Action = [
           "secretsmanager:GetSecretValue",
           "secretsmanager:GetResourcePolicy"
         ],
-        Effect   = "Allow",
+        Effect = "Allow",
         Resource = [
           "${aws_secretsmanager_secret.email_service_secret.arn}",
           "${aws_secretsmanager_secret.email_from_email_secret.arn}"

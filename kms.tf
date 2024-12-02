@@ -44,25 +44,25 @@ resource "aws_kms_key" "secrets_kms_key" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid       = "AllowRootUser",
-        Effect    = "Allow",
+        Sid    = "AllowRootUser",
+        Effect = "Allow",
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         },
-        Action    = "kms:*",
-        Resource  = "*"
+        Action   = "kms:*",
+        Resource = "*"
       },
       {
-        Sid       = "AllowKeyUsage",
-        Effect    = "Allow",
+        Sid    = "AllowKeyUsage",
+        Effect = "Allow",
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:role/${aws_iam_role.cloudwatch_agent_role.name}"
         },
-        Action    = [
+        Action = [
           "kms:Decrypt",
           "kms:GenerateDataKey"
         ],
-        Resource  = "*"
+        Resource = "*"
       }
     ]
   })
