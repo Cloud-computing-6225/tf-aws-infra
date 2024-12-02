@@ -57,15 +57,33 @@ resource "aws_lb_target_group" "app_target_group" {
     unhealthy_threshold = 2
   }
 }
-resource "aws_lb_listener" "http_listener" {
+# resource "aws_lb_listener" "http_listener" {
+#   load_balancer_arn = aws_lb.app_lb.arn
+#   port              = 80
+#   protocol          = "HTTP"
+
+#   default_action {
+#     type             = "forward"
+#     target_group_arn = aws_lb_target_group.app_target_group.arn
+#   }
+# }
+
+data "aws_acm_certificate" "imported_cert" {
+  domain      = var.domain_name
+  most_recent = true
+  statuses    = ["ISSUED"]
+}
+
+resource "aws_lb_listener" "https_listener" {
   load_balancer_arn = aws_lb.app_lb.arn
-  port              = 80
-  protocol          = "HTTP"
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-2016-08" # Replace with your preferred SSL policy.
+  certificate_arn   = data.aws_acm_certificate.imported_cert.arn
 
   default_action {
     type             = "forward"
     target_group_arn = aws_lb_target_group.app_target_group.arn
   }
 }
-
 

@@ -176,6 +176,18 @@ resource "aws_launch_template" "web_app_launch_template" {
     # Update package repository
     apt-get update
 
+    # Install jq for parsing JSON
+    apt-get update && apt-get install -y jq
+
+     curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+     sudo apt-get install unzip -y
+     unzip awscliv2.zip
+      sudo ./aws/install
+
+    echo "INItinating password"
+    DB_PASSWORD=$(aws secretsmanager get-secret-value --secret-id ${aws_secretsmanager_secret.db_password_secret.name} --query 'SecretString' --output text)
+
+
     # Install CloudWatch Agent
     sudo wget https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb
     sudo dpkg -i amazon-cloudwatch-agent.deb
@@ -193,7 +205,7 @@ resource "aws_launch_template" "web_app_launch_template" {
     DB_HOST=${aws_db_instance.csye6225_db.address}
     DB_NAME=${var.db_name}
     DB_USER=${var.db_user}
-    DB_PASSWORD=${var.db_password}
+    DB_PASSWORD=$DB_PASSWORD
     DB_PORT=3306
     PORT=8080
     S3_BUCKET_NAME=${aws_s3_bucket.app_bucket.bucket}

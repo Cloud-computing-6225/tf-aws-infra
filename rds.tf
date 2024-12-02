@@ -43,6 +43,15 @@ resource "aws_db_parameter_group" "db_parameter_group" {
   }
 }
 
+
+# Retrieve the secret value from AWS Secrets Manager
+data "aws_secretsmanager_secret_version" "db_password" {
+  secret_id = aws_secretsmanager_secret.db_password_secret.id
+
+  depends_on = [aws_secretsmanager_secret_version.db_password_version]
+
+}
+
 resource "aws_db_instance" "csye6225_db" {
   identifier             = "csye6225"
   engine                 = "mysql"
@@ -52,12 +61,14 @@ resource "aws_db_instance" "csye6225_db" {
   db_subnet_group_name   = aws_db_subnet_group.csye6225_db_subnet_group.name
   vpc_security_group_ids = [aws_security_group.db_sg.id]
   username               = var.db_user
-  password               = var.db_password
+  password               = data.aws_secretsmanager_secret_version.db_password.secret_string
   parameter_group_name   = aws_db_parameter_group.db_parameter_group.name
   publicly_accessible    = false
   multi_az               = false
   skip_final_snapshot    = true
   db_name                = var.db_name
+  storage_encrypted      = true
+  kms_key_id             = aws_kms_key.rds_kms_key.arn
 
   tags = {
     Name = "${var.project_name}-db-instance"
